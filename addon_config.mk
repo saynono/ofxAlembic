@@ -31,7 +31,17 @@ common:
 	ADDON_INCLUDES += src
 	ADDON_INCLUDES += libs/alembic/include
 	ADDON_INCLUDES += libs/alembic/include/OpenEXR
+	ADDON_INCLUDES += libs/hdf5/include
 
+
+# 	ADDON_LIBS=
+# 	ADDON_LIBS+=libs/alembic/lib/linux64/libAlembic.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libhdf5.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libhdf5_cpp.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libhdf5_hl.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libhdf5_hl_cpp.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libhdf5_tools.a
+# 	ADDON_LIBS+=libs/hdf5/lib/linux64/libszip.a
 
 	# any special flag that should be passed to the compiler when using this
 	# addon
@@ -39,7 +49,6 @@ common:
 
 	# any special flag that should be passed to the linker when using this
 	# addon, also used for system libraries with -lname
-	# ADDON_LDFLAGS =
 
 	# linux only, any library that should be included in the project using
 	# pkg-config
@@ -62,5 +71,10 @@ common:
 	# a specific platform
 	# ADDON_LIBS_EXCLUDE =
 
+ 	# ADDON_INCLUDES_EXCLUDE=libs/alembic/include/OpenEXR
 
 
+
+
+linux64:
+	ADDON_LDFLAGS =  -lImath -lIlmThread -lIex -lHalf 

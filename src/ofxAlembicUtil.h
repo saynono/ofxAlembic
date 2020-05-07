@@ -3,7 +3,7 @@
 #include "ofMain.h"
 
 #include <Alembic/AbcGeom/All.h>
-#include <Alembic/AbcCoreHDF5/All.h>
+// #include <Alembic/AbcCoreHDF5/All.h>
 #include <Alembic/AbcCoreOgawa/All.h>
 
 #include "ofxAlembicType.h"

@@ -11,7 +11,7 @@ void testApp::setup()
 {
 	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
-	ofBackground(0);
+	ofBackground(60,10,30);
 	
 	string path = "sample.abc";
 	

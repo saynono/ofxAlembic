@@ -33,8 +33,8 @@
 //
 //-*****************************************************************************
 
-#ifndef _Alembic_Util_Foundation_h_
-#define _Alembic_Util_Foundation_h_
+#ifndef Alembic_Util_Foundation_h
+#define Alembic_Util_Foundation_h
 
 #include <Alembic/Util/Config.h>
 
@@ -71,6 +71,7 @@
 #include <exception>
 #include <limits>
 
+#include <list>
 #include <map>
 #include <string>
 #include <vector>
@@ -100,8 +101,12 @@
 // needed for std min/max
 #include <algorithm>
 
+// When we change this version (because of an ABI change) Make sure to at
+// LEAST bump the minor version in CMakeLists.txt i.e. PROJECT_VERSION_MINOR
+// This way we will hopefully not break any distros that kindly include us.
+// See Issue243
 #ifndef ALEMBIC_VERSION_NS
-#define ALEMBIC_VERSION_NS v8
+#define ALEMBIC_VERSION_NS v12
 #endif
 
 namespace Alembic {
@@ -167,18 +172,12 @@ public:
 
     ~unique_ptr()
     {
-        if ( p )
-        {
-            delete p;
-        }
+        delete p;
     }
 
     void reset( T* val )
     {
-        if ( p )
-        {
-            delete p;
-        }
+        delete p;
         p = val;
     }
 
@@ -226,26 +225,26 @@ class mutex : noncopyable
 public:
     mutex()
     {
-        m = CreateMutex( NULL, FALSE, NULL );
+         InitializeCriticalSection(&cs);
     }
 
     ~mutex()
     {
-        CloseHandle( m );
+        DeleteCriticalSection(&cs);
     }
 
     void lock()
     {
-        WaitForSingleObject( m, INFINITE );
+        EnterCriticalSection(&cs);
     }
 
     void unlock()
     {
-        ReleaseMutex( m );
+        LeaveCriticalSection(&cs);
     }
 
 private:
-    HANDLE m;
+    CRITICAL_SECTION cs;
 };
 
 #else
