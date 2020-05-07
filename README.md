@@ -1,3 +1,5 @@
+## focus on linux!
+
 # ofxAlembic
 
 Alembic wrapper addon for macOS + OF 0.10.0.
